@@ -1,53 +1,18 @@
-const canvas = document.querySelector("canvas");
-const context = canvas.getContext("2d");
+import Ball from './ball'
 
-//Makes canvas fit the entire screen
-canvas.width = window.innerWidth;
-canvas.height = innerHeight;
+const ball = Ball(document.getElementById('ball'));
 
-class Character {
-    constructor(x, y, radius, color) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.color = color;
+
+//loop to update at every changed frame
+let lastTime
+function updateloop(time) {
+    if (lastTime != null) {
+        const delta = time - lastTime;
+        //for frame drops
+        ball.update(delta);
     }
-    draw() {
-        context.beginPath()
-        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-        context.fillStyle = this.color;
-        context.fill()
-    }
+    lastTime = time;
+    window.requestAnimationFrame(updateloop);
 }
 
-const x = canvas.width / 2
-const y = canvas.height / 2
-
-const player = new Character(x, y, 30, 'blue')
-player.draw()
-
-class Bullet {
-    constructor(x, y, radius, color, velocity) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.color = color;
-        this.velocity = velocity;
-    }
-    draw() {
-        context.beginPath()
-        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-        context.fillStyle = this.color;
-        context.fill()
-    }
-}
-
-window.addEventListener('click', (event) => {
-    const bullet = new Bullet(
-        event.clientX, 
-        event.clientY, 
-        5, 
-        'black',
-        null
-        )
-    })
+window.requestAnimationFrame(updateloop);
