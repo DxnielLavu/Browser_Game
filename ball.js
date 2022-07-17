@@ -37,7 +37,7 @@ export default class Ball {
         while (
             Math.abs(this.direction.x) <= 0.2 ||
             Math.abs(this.direction.x) >= 0.9
-            ) {
+        ) {
             //determines direction
             const heading = randomNumberBetween(0, 2 * Math.PI);
             //converts direction to cords
@@ -46,7 +46,7 @@ export default class Ball {
         this.velocity = starting_velocity;
     }
 
-    update(delta) {
+    update(delta, paddleHit) {
         this.x += this.direction.x * this.velocity * delta;
         this.y += this.direction.y * this.velocity * delta;
         this.velocity += increase_velocity * delta;
@@ -55,7 +55,7 @@ export default class Ball {
         if (borderBounce.bottom >= window.innerHeight || borderBounce.top <= 0) {
             this.direction.y *= -1
         }
-        if (borderBounce.right >= window.innerWidth || borderBounce.left <= 0) {
+        if (paddleHit.some(r => isCollision(r, hit))) {
             this.direction.x *= -1
         }
     }
@@ -63,4 +63,9 @@ export default class Ball {
 
 function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min;
+}
+
+function isCollision(hit1, hit2) {
+    return (hit1.left <= hit2.right && hit1.right >= hit2.left && hit1.top <= hit2.bottom
+        && hit1.bottom >= hit2.top)
 }
