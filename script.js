@@ -19,13 +19,23 @@ function updateloop(time) {
 
         if (ballLost()) lost()
     }
+    if (aiScore.textContent >= 2) {
+        resetGame()
+    }
     lastTime = time;
     window.requestAnimationFrame(updateloop);
 }
 
+function resetGame() {
+    playerScore.textContent = 0
+    aiScore.textContent = 0
+    ball.reset();
+    aiPaddle.reset();
+}
+
 function ballLost() {
-    const borderBounce = ball.borderBounce()
-    return borderBounce.right >= window.innerWidth || borderBounce.left <= 0
+    const borderBounce = ball.borderBounce();
+    return borderBounce.right >= window.innerWidth || borderBounce.left <= 0;
 }
 
 function lost() {

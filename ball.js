@@ -46,7 +46,7 @@ export default class Ball {
         this.velocity = starting_velocity;
     }
 
-    update(delta, paddleHit) {
+    update(delta, paddleRects) {
         this.x += this.direction.x * this.velocity * delta;
         this.y += this.direction.y * this.velocity * delta;
         this.velocity += increase_velocity * delta;
@@ -55,7 +55,7 @@ export default class Ball {
         if (borderBounce.bottom >= window.innerHeight || borderBounce.top <= 0) {
             this.direction.y *= -1
         }
-        if (paddleHit.some(r => isCollision(r, hit))) {
+        if (paddleRects.some(r => isCollision(r, borderBounce))) {
             this.direction.x *= -1
         }
     }
@@ -65,7 +65,7 @@ function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-function isCollision(hit1, hit2) {
-    return (hit1.left <= hit2.right && hit1.right >= hit2.left && hit1.top <= hit2.bottom
-        && hit1.bottom >= hit2.top)
+function isCollision(rect1, rect2) {
+    return (rect1.left <= rect2.right && rect1.right >= rect2.left && rect1.top <= rect2.bottom
+        && rect1.bottom >= rect2.top)
 }
