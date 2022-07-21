@@ -68,3 +68,20 @@ body {
     text-align: right;
     border-right: .5vh solid
 }
+
+#howToWin {
+    display: flex;
+    justify-content: center;
+    color: white;
+    opacity: 0.5;
+    font-size: 2.5vh;
+}
+
+#You_Won {
+    display: flex;
+    justify-content: center;
+    color: white;
+    opacity: 0.5;
+    font-size: 2.5vh;
+    margin-top: 8vh;
+}
