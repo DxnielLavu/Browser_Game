@@ -1,4 +1,4 @@
-const aiSpeed = .02
+const aiSpeed = .2
 
 export default class Paddle {
     constructor(paddlejs) {
@@ -16,7 +16,7 @@ export default class Paddle {
         this.paddlejs.style.setProperty("--position", value);
     }
 
-    hit() {
+    rect() {
         return this.paddlejs.getBoundingClientRect()
     }
 
@@ -24,7 +24,7 @@ export default class Paddle {
         this.position = 50;
     }
 
-    update(delta, ballHeight) {
-        this.position += aiSpeed * delta * (ballHeight - this.position)
+    update(ballHeight) {
+        this.position += aiSpeed * (ballHeight - this.position)
     }
 }

@@ -7,50 +7,50 @@ const aiPaddle = new Paddle(document.getElementById('ai-paddle'))
 const playerScore = document.getElementById('player-score')
 const aiScore = document.getElementById('ai-score')
 const buttonClick = document.getElementById('restartButton')
+const resultElem = document.getElementById("result")
 
 //loop to update at every changed frame
 let lastTime
 function updateloop(time) {
     if (lastTime != null) {
-        const delta = time - lastTime;
         //for frame drops
-        ball.update(delta, [playerPaddle.hit(), aiPaddle.hit()]);
-        aiPaddle.update(delta, ball.y)
+        ball.update([playerPaddle.rect(), aiPaddle.rect()]);
+        aiPaddle.update(ball.y)
 
         if (ballLost()) lost()
     }
-    if (aiScore.textContent >= 2 || playerScore.textContent >= 2) {
-        whoWon()
+    if (aiScore.textContent >= 5 || playerScore.textContent >= 5) {
+        winCheck()
         return updateloop
     }
     lastTime = time;
     window.requestAnimationFrame(updateloop);
 }
 
-function buttonFunction(){
+//From https://stackoverflow.com/questions/27508025/html-javascript-how-can-i-make-a-button-appear-in-a-function
+function buttonAppear() {
     document.getElementById("restartButton").innerHTML = '<button id="restartButton">Restart Game</button>';
 }
 
 buttonClick.addEventListener("click", () => {
-    resetGame()
+    resetScore()
+    resultElem.innerText = '';
     document.getElementById("restartButton").innerHTML = '';
     window.requestAnimationFrame(updateloop);
 })
 
-function whoWon() {
-    const resultElem = document.getElementById("result")
-    if (aiScore.textContent >= 2) {
+function winCheck() {
+    if (aiScore.textContent >= 5) {
         resultElem.innerText = "AI Wins!"
-        buttonFunction()
+        buttonAppear()
     }
-    if (playerScore.textContent >= 2) {
+    if (playerScore.textContent >= 5) {
         resultElem.innerText = "Player Wins!"
-        buttonFunction()
+        buttonAppear()
     }
-    resetGame()
 }
 
-function resetGame() {
+function resetScore() {
     playerScore.textContent = 0
     aiScore.textContent = 0
     ball.reset();
@@ -58,12 +58,12 @@ function resetGame() {
 }
 
 function ballLost() {
-    const borderBounce = ball.borderBounce();
+    const borderBounce = ball.ballReposition();
     return borderBounce.right >= window.innerWidth || borderBounce.left <= 0;
 }
 
 function lost() {
-    const borderBounce = ball.borderBounce()
+    const borderBounce = ball.ballReposition()
     if (borderBounce.right >= window.innerWidth) {
         playerScore.textContent = parseInt(playerScore.textContent) + 1
     } else {
