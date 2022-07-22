@@ -32,8 +32,8 @@ function buttonFunction(){
 }
 
 buttonClick.addEventListener("click", () => {
-    document.getElementById("restartButton").innerHTML = '';
     resetGame()
+    document.getElementById("restartButton").innerHTML = '';
     window.requestAnimationFrame(updateloop);
 })
 
