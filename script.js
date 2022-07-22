@@ -6,7 +6,7 @@ const playerPaddle = new Paddle(document.getElementById('player-paddle'))
 const aiPaddle = new Paddle(document.getElementById('ai-paddle'))
 const playerScore = document.getElementById('player-score')
 const aiScore = document.getElementById('ai-score')
-
+const buttonClick = document.getElementById('restartButton')
 
 //loop to update at every changed frame
 let lastTime
@@ -19,11 +19,35 @@ function updateloop(time) {
 
         if (ballLost()) lost()
     }
-    if (aiScore.textContent >= 2) {
-        resetGame()
+    if (aiScore.textContent >= 2 || playerScore.textContent >= 2) {
+        whoWon()
+        return updateloop
     }
     lastTime = time;
     window.requestAnimationFrame(updateloop);
+}
+
+function buttonFunction(){
+    document.getElementById("restartButton").innerHTML = '<button id="restartButton">Restart Game</button>';
+}
+
+buttonClick.addEventListener("click", () => {
+    document.getElementById("restartButton").innerHTML = '';
+    resetGame()
+    window.requestAnimationFrame(updateloop);
+})
+
+function whoWon() {
+    const resultElem = document.getElementById("result")
+    if (aiScore.textContent >= 2) {
+        resultElem.innerText = "AI Wins!"
+        buttonFunction()
+    }
+    if (playerScore.textContent >= 2) {
+        resultElem.innerText = "Player Wins!"
+        buttonFunction()
+    }
+    resetGame()
 }
 
 function resetGame() {
