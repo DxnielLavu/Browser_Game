@@ -25,16 +25,20 @@ function updateloop(time) {
     window.requestAnimationFrame(updateloop);
 }
 
+
 //From https://stackoverflow.com/questions/27508025/html-javascript-how-can-i-make-a-button-appear-in-a-function
 function buttonAppear() {
-    document.getElementById("restartButton").innerHTML = '<button id="restartButton">Restart Game</button>';
+    document.getElementById("restartButton").innerHTML =
+        '<button id="restartButton">Restart Game</button>';
 }
 
 buttonClick.addEventListener("click", () => {
     resetScore()
     resultElem.innerText = '';
     document.getElementById("restartButton").innerHTML = '';
-    window.requestAnimationFrame(updateloop);
+    setTimeout(() => {
+        window.requestAnimationFrame(updateloop);
+    }, 1000)
 })
 
 function winCheck() {
@@ -63,7 +67,7 @@ function ballLost() {
 function whoScores() {
     const resetBallPos = ball.ballReposition()
     if (resetBallPos.right >= window.innerWidth) {
-        playerScore.textContent = parseInt(playerScore.textContent) + 1
+        playerScore.textContent = parseInt(playerScore.textContent) + 1;
     } else {
         aiScore.textContent = parseInt(aiScore.textContent) + 1
     }

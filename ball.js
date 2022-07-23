@@ -1,14 +1,12 @@
 const starting_velocity = 0.3
-const increase_velocity = 0.003
+const increase_velocity = 0.002
 
-//Makes the ball class able to use on other files
 export default class Ball {
     constructor(balljs) {
         this.balljs = balljs;
         this.reset()
     }
 
-    //takes value from CSS to usable java number
     get x() {
         return parseFloat(getComputedStyle(this.balljs).getPropertyValue("--x"));
     }
@@ -25,7 +23,6 @@ export default class Ball {
         this.balljs.style.setProperty("--y", value);
     }
 
-    //function for resetting the ball if it hits border
     ballReposition() {
         return this.balljs.getBoundingClientRect()
     }
@@ -38,9 +35,7 @@ export default class Ball {
             Math.abs(this.direction.x) <= 0.2 ||
             Math.abs(this.direction.x) >= 0.9
         ) {
-            //determines direction
             const heading = randomNumberBetween(0, 2 * Math.PI);
-            //converts direction to cords
             this.direction = { x: Math.cos(heading), y: Math.sin(heading) };
         }
         this.velocity = starting_velocity;
@@ -66,6 +61,6 @@ function randomNumberBetween(min, max) {
 }
 
 function collisionCheck(rect1, rect2) {
-    return (rect1.left <= rect2.right && rect1.right >= rect2.left && rect1.top <= rect2.bottom
-        && rect1.bottom >= rect2.top)
+    return (rect1.left <= rect2.right && rect1.right >= rect2.left &&
+        rect1.top <= rect2.bottom && rect1.bottom >= rect2.top)
 }
