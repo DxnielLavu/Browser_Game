@@ -20,14 +20,14 @@ body {
 .paddle.left {
     left: 1.4vw;
     /*image taken from https://gamesupply.itch.io/ultimate-space-game-mega-asset-package*/
-    background-image: url(/Files/playerPaddle.png);
+    background-image: url(./Files/playerPaddle.png);
     background-position: center right;
 }
 
 .paddle.right {
     right: 1.4vw;
     /*image taken from https://gamesupply.itch.io/ultimate-space-game-mega-asset-package*/
-    background-image: url(/Files/aiPaddle.png);
+    background-image: url(./Files/aiPaddle.png);
     background-position: center left;
 }
 
