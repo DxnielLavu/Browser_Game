@@ -55,12 +55,12 @@ function resetScore() {
 }
 
 function ballLost() {
-    const resetBallPos = ball.ballReposition();
+    const resetBallPos = ball.ballPos();
     return resetBallPos.right >= window.innerWidth || resetBallPos.left <= 0;
 }
 
 function whoScores() {
-    const resetBallPos = ball.ballReposition()
+    const resetBallPos = ball.ballPos()
     if (resetBallPos.right >= window.innerWidth) {
         playerScore.textContent = parseInt(playerScore.textContent) + 1;
     } else {

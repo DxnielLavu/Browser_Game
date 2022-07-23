@@ -23,7 +23,7 @@ export default class Ball {
         this.balljs.style.setProperty("--y", value);
     }
 
-    ballReposition() {
+    ballPos() {
         return this.balljs.getBoundingClientRect()
     }
 
@@ -35,8 +35,8 @@ export default class Ball {
             Math.abs(this.direction.x) <= 0.2 ||
             Math.abs(this.direction.x) >= 0.9
         ) {
-            const heading = randomNumberBetween(0, 2 * Math.PI);
-            this.direction = { x: Math.cos(heading), y: Math.sin(heading) };
+            const whichDirection = randomNumberBetween(0, 2 * Math.PI);
+            this.direction = { x: Math.cos(whichDirection), y: Math.sin(whichDirection) };
         }
         this.velocity = starting_velocity;
     }
@@ -45,7 +45,7 @@ export default class Ball {
         this.x += this.direction.x * this.velocity;
         this.y += this.direction.y * this.velocity;
         this.velocity += increase_velocity;
-        const borderHit = this.ballReposition()
+        const borderHit = this.ballPos()
 
         if (borderHit.bottom >= window.innerHeight || borderHit.top <= 0) {
             this.direction.y *= -1

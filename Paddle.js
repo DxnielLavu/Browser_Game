@@ -7,8 +7,7 @@ export default class Paddle {
     }
 
     get position() {
-        return parseFloat(
-            getComputedStyle(this.paddlejs).getPropertyValue("--position")
+        return parseFloat(getComputedStyle(this.paddlejs).getPropertyValue("--position")
         )
     }
 
