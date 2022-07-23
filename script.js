@@ -9,17 +9,15 @@ const aiScore = document.getElementById('ai-score')
 const buttonClick = document.getElementById('restartButton')
 const resultElem = document.getElementById("result")
 
-//loop to update at every changed frame
 let lastTime
 function updateloop(time) {
     if (lastTime != null) {
-        //for frame drops
         ball.update([playerPaddle.rect(), aiPaddle.rect()]);
         aiPaddle.update(ball.y)
 
-        if (ballLost()) lost()
+        if (ballLost()) whoScores()
     }
-    if (aiScore.textContent >= 5 || playerScore.textContent >= 5) {
+    if (aiScore.textContent >= 3 || playerScore.textContent >= 3) {
         winCheck()
         return updateloop
     }
@@ -40,11 +38,11 @@ buttonClick.addEventListener("click", () => {
 })
 
 function winCheck() {
-    if (aiScore.textContent >= 5) {
+    if (aiScore.textContent >= 3) {
         resultElem.innerText = "AI Wins!"
         buttonAppear()
     }
-    if (playerScore.textContent >= 5) {
+    else {
         resultElem.innerText = "Player Wins!"
         buttonAppear()
     }
@@ -58,13 +56,13 @@ function resetScore() {
 }
 
 function ballLost() {
-    const borderBounce = ball.ballReposition();
-    return borderBounce.right >= window.innerWidth || borderBounce.left <= 0;
+    const resetBallPos = ball.ballReposition();
+    return resetBallPos.right >= window.innerWidth || resetBallPos.left <= 0;
 }
 
-function lost() {
-    const borderBounce = ball.ballReposition()
-    if (borderBounce.right >= window.innerWidth) {
+function whoScores() {
+    const resetBallPos = ball.ballReposition()
+    if (resetBallPos.right >= window.innerWidth) {
         playerScore.textContent = parseInt(playerScore.textContent) + 1
     } else {
         aiScore.textContent = parseInt(aiScore.textContent) + 1

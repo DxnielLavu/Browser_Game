@@ -6,7 +6,7 @@
 
 body {
     margin: 0;
-    background-color: #333;
+    background-image: url(./Files/Background.png);
     overflow: hidden;
 }
 
@@ -15,19 +15,24 @@ body {
     --position: 50;
 
     position: absolute;
-    background-color: white;
     top: calc(var(--position) * 1vh);
     transform: translateY(-50%);
-    width: 1vh;
+    width: 2vh;
     height: 10vh;
+    background-size:auto;
+    background-repeat: no-repeat;
 }
 
 .paddle.left {
-    left: 1vw;
+    left: 1.4vw;
+    background-image: url(/Files/playerPaddle.png);
+    background-position: center right;
 }
 
 .paddle.right {
-    right: 1vw;
+    right: 1.4vw;
+    background-image: url(/Files/aiPaddle.png);
+    background-position: center left;
 }
 
 .ball {
@@ -35,14 +40,14 @@ body {
     --y: 50;
 
     position: absolute;
-    background-image: url("./original.gif");
+    background-image: url("./Files/Ball.gif");
     background-position: center;
     background-size: cover;
     left: calc(var(--x) * 1vw);
     top: calc(var(--y) * 1vh);
     transform: translateY(-50%, -50%);
-    width: 2.5vh;
-    height: 2.5vh;
+    width: 3vh;
+    height: 3vh;
     border-radius: 50%;
 }
 
@@ -50,14 +55,14 @@ body {
     display: flex;
     justify-content: center;
     font-weight: bold;
-    font-size: 7vh;
+    font-size: 5vh;
     color: white;
+    font-family: OCR A Std, monospace;
 }
 
 /* half the screen is taken up by each score */
 .score>* {
     flex-grow: 1;
-    flex-basis: 0;
     padding: 0 2vh;
     margin: 1vh 0;
     opacity: 0.5;
@@ -66,7 +71,7 @@ body {
 /* fixes left score to stay towards middle */
 .score> :first-child {
     text-align: right;
-    border-right: .5vh solid
+    border-right: .5vh solid;
 }
 
 #howToWin {
@@ -75,6 +80,7 @@ body {
     color: white;
     opacity: 0.5;
     font-size: 2.5vh;
+    font-family: OCR A Std, monospace;
 }
 
 #result {
@@ -83,12 +89,14 @@ body {
     color: white;
     font-size: 5vh;
     margin-top: 8vh;
+    margin-bottom: 1vh;
+    font-family: OCR A Std, monospace;
 }
 
 #restartButton {
     display: flex;
     justify-content: center;
-    background-color: none;
-    border: none;
-    font-size: 5vh;
+    border-radius: 10%;
+    font-size: 4vh;
+    font-family: OCR A Std, monospace;
 }
