@@ -9,19 +9,14 @@ const aiScore = document.getElementById('ai-score')
 const buttonClick = document.getElementById('restartButton')
 const resultElem = document.getElementById("result")
 
-let lastTime
-function updateloop(time) {
-    if (lastTime != null) {
-        ball.update([playerPaddle.rect(), aiPaddle.rect()]);
-        aiPaddle.update(ball.y)
-
-        if (ballLost()) whoScores()
-    }
+function updateloop() {
+    ball.update([playerPaddle.rect(), aiPaddle.rect()]);
+    aiPaddle.update(ball.y)
+    if (ballLost()) whoScores()
     if (aiScore.textContent >= 3 || playerScore.textContent >= 3) {
         winCheck()
         return updateloop
     }
-    lastTime = time;
     window.requestAnimationFrame(updateloop);
 }
 
